@@ -1,0 +1,61 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.205.2/containers/alpine
+{
+	"name": "TexLive-ja",
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder}/,target=/workspace,type=bind,consistency=cached",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"USERNAME": "vscode"
+		}
+	},
+	// Set *default* container specific settings.json values on container create. 
+	"settings": {
+		"[tex]": {
+			"editor.suggest.snippetsPreventQuickSuggestions": false,
+			"editor.tabSize": 2
+		},
+		"[latex]": {
+			"editor.suggest.snippetsPreventQuickSuggestions": false,
+			"editor.tabSize": 2
+		},
+		"[bibtex]": {
+			"editor.tabSize": 2
+		},
+		"latex-workshop.intellisense.package.enabled": true,
+		"latex-workshop.latex.tools": [
+			{
+				"name": "latexmk",
+				"command": "latexmk",
+				"args": [
+					"-synctex=1",
+					"-interaction=nonstopmode",
+					"-file-line-error",
+					"-halt-on-error",
+					"-pdfdvi",
+					"-outdir=%OUTDIR%",
+					"%DOC%"
+				]
+			}
+		],
+		"latex-workshop.latex.recipes": [
+			{
+				"name": "latexmk",
+				"tools": [
+					"latexmk"
+				]
+			}
+		],
+		"latex-workshop.latex.outDir": "out",
+	},
+	"extensions": [
+		"james-yu.latex-workshop"
+	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+	// Replace when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--init", "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}
